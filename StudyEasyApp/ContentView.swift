@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     
     var colors : [Color] = [.black, .red, .green, .blue]
@@ -18,24 +20,28 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             Text("Hello, world!")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .rotationEffect(Angle(degrees: rotation))
                 .animation(.easeOut(duration: 5) , value: rotation)
                 .foregroundColor(colors[colorIndex])
+            Spacer()
+            Divider()
             Slider(value: $rotation,in: 0 ... 360 , step : 0.1)
-            Text("\(rotation)")
+                .padding()
             
             TextField("Enter text here", text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Picker(selection: $colorIndex , label: Text("Color")){
+                .padding()
+            Picker("Color",selection: $colorIndex ){
                 ForEach(0 ..< colornames.count , id : \.self){ index in                     Text(colornames[index])
                         .foregroundColor(colors[index])
                 }
-            }
-
+            }.pickerStyle(.wheel)
+            .padding()
+            Spacer()
         }
     }
 }
